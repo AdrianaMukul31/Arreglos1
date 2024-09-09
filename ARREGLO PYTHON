@@ -1,0 +1,76 @@
+ventas = [
+    ['Meses', 'Ropa', 'Deportes', 'Juguetería'],
+    ['Enero', 4000, 5055, 3434],
+    ['Febrero', 83278, 737, 8282],
+    ['Marzo', 7445, 3244, 2324],
+    ['Abril', 7374, 5432, 1212],
+    ['Mayo', 3339, 772, 2344],
+    ['Junio', 4984, 5775, 8483],
+    ['Julio', 8000, 3000, 2230],
+    ['Agosto', 3774, 6654, 34335],
+    ['Septiembre', 600, 440, 1779],
+    ['Octubre', 9829, 2713, 1313],
+    ['Noviembre', 8558, 112, 4343],
+    ['Diciembre', 939483, 9973, 5465]
+]
+
+def imprimir_matriz(matriz, titulo):
+    print(titulo)
+    for fila in matriz:
+        print(fila)
+    print()  
+
+def buscarventa(mes, categoria):
+    if categoria not in ventas[0]:
+        return "Categoría no encontrada"
+    col_idx = ventas[0].index(categoria)
+    
+    for fila in ventas[1:]:
+        if fila[0] == mes:
+            return fila[col_idx]
+    
+    return "Mes no encontrado"
+
+def eliminarventas(mes, categoria):
+    if categoria not in ventas[0]:
+        return "Categoría no encontrada"
+    
+    col_idx = ventas[0].index(categoria)
+    
+    for fila in ventas[1:]:
+        if fila[0] == mes:
+            fila[col_idx] = None
+            return f"Venta eliminada para {mes} en la categoría {categoria}"
+    
+    return "Mes no encontrado"
+
+def insertar_venta(mes, ventas_categoria):
+    if len(ventas_categoria) != len(ventas[0]) - 1:
+        return "Número de ventas no coincide con el número de categorías"
+
+ 
+    for fila in ventas[1:]:
+        if fila[0] == mes:
+            return "El mes ya existe en la matriz"
+
+    
+    nueva_fila = [mes] + ventas_categoria
+    ventas.append(nueva_fila)
+    return f"Venta insertada para {mes}"
+
+
+imprimir_matriz(ventas, "Matriz Original:")
+
+
+resultado_busqueda = buscarventa('Mayo', 'Ropa')
+print(f"La venta de ropa en mayo es: {resultado_busqueda}")
+
+
+resultado_eliminacion = eliminarventas('Septiembre', 'Juguetería')
+print(resultado_eliminacion)
+
+
+resultado_insercion = insertar_venta('Enero', [4500, 5000, 3500])  # Ejemplo de inserción
+print(resultado_insercion)
+
+imprimir_matriz(ventas, "Matriz Actualizada:")
