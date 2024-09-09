@@ -1,0 +1,108 @@
+public class Main {
+    private static Object[][] ventas = {
+        {"Meses", "Ropa", "Deportes", "Juguetería"},
+        {"Enero", 4000, 5055, 3434},
+        {"Febrero", 83278, 737, 8282},
+        {"Marzo", 7445, 3244, 2324},
+        {"Abril", 7374, 5432, 1212},
+        {"Mayo", 3339, 772, 2344},
+        {"Junio", 4984, 5775, 8483},
+        {"Julio", 8000, 3000, 2230},
+        {"Agosto", 3774, 6654, 34335},
+        {"Septiembre", 600, 440, 1779},
+        {"Octubre", 9829, 2713, 1313},
+        {"Noviembre", 8558, 112, 4343},
+        {"Diciembre", 939483, 9973, 5465}
+    };
+
+    public static void main(String[] args) {
+        // Imprimir la matriz original
+        imprimirMatriz(ventas, "Matriz Original:");
+
+        // Buscar la venta de ropa en mayo
+        Object resultadoBusqueda = buscarVenta("Mayo", "Ropa");
+        System.out.println("La venta de ropa en mayo es: " + resultadoBusqueda);
+
+        // Eliminar la venta de juguetería en septiembre
+        String resultadoEliminacion = eliminarVentas("Septiembre", "Juguetería");
+        System.out.println(resultadoEliminacion);
+
+        // Insertar una nueva venta
+        String resultadoInsercion = insertarVenta("Enero", new Object[]{4500, 5000, 3500});
+        System.out.println(resultadoInsercion);
+
+        // Imprimir la matriz actualizada
+        imprimirMatriz(ventas, "Matriz Actualizada:");
+    }
+
+    private static void imprimirMatriz(Object[][] matriz, String titulo) {
+        System.out.println(titulo);
+        for (Object[] fila : matriz) {
+            for (Object elemento : fila) {
+                System.out.print(elemento + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println();  // Línea en blanco para separar las impresiones
+    }
+
+    private static Object buscarVenta(String mes, String categoria) {
+        String[] encabezado = (String[]) ventas[0];
+        int colIdx = -1;
+        for (int i = 0; i < encabezado.length; i++) {
+            if (encabezado[i].equals(categoria)) {
+                colIdx = i;
+                break;
+            }
+        }
+        if (colIdx == -1) {
+            return "Categoría no encontrada";
+        }
+        for (int i = 1; i < ventas.length; i++) {
+            if (ventas[i][0].equals(mes)) {
+                return ventas[i][colIdx];
+            }
+        }
+        return "Mes no encontrado";
+    }
+
+    private static String eliminarVentas(String mes, String categoria) {
+        String[] encabezado = (String[]) ventas[0];
+        int colIdx = -1;
+        for (int i = 0; i < encabezado.length; i++) {
+            if (encabezado[i].equals(categoria)) {
+                colIdx = i;
+                break;
+            }
+        }
+        if (colIdx == -1) {
+            return "Categoría no encontrada";
+        }
+        for (int i = 1; i < ventas.length; i++) {
+            if (ventas[i][0].equals(mes)) {
+                ventas[i][colIdx] = null;
+                return "Venta eliminada para " + mes + " en la categoría " + categoria;
+            }
+        }
+        return "Mes no encontrado";
+    }
+
+    private static String insertarVenta(String mes, Object[] ventasCategoria) {
+        if (ventasCategoria.length != ventas[0].length - 1) {
+            return "Número de ventas no coincide con el número de categorías";
+        }
+        for (int i = 1; i < ventas.length; i++) {
+            if (ventas[i][0].equals(mes)) {
+                return "El mes ya existe en la matriz";
+            }
+        }
+        Object[] nuevaFila = new Object[ventas[0].length];
+        nuevaFila[0] = mes;
+        System.arraycopy(ventasCategoria, 0, nuevaFila, 1, ventasCategoria.length);
+        Object[][] nuevaMatriz = new Object[ventas.length + 1][];
+        System.arraycopy(ventas, 0, nuevaMatriz, 0, ventas.length);
+        nuevaMatriz[ventas.length] = nuevaFila;
+        ventas = nuevaMatriz;
+        return "Venta insertada para " + mes;
+    }
+}
