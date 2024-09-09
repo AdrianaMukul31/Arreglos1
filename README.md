@@ -1,1 +1,6 @@
 # Arreglos1
+Definición de la Matriz:
+ventas es una lista de listas (matriz) donde cada sublista representa una fila, y la primera sublista contiene los encabezados de las columnas,imprime la matriz con un título dado. Recorre cada fila y la imprime, busca el valor de una categoría específica para un mes dado. Encuentra el índice de la categoría en la primera fila (encabezado) y luego busca la fila correspondiente al mes establece el valor correspondiente a una categoría y mes dado a None. Encuentra la columna de la categoría y la fila del mes, luego elimina el valor, inserta una nueva fila en la matriz si el mes no existe ya. Verifica que el número de ventas coincida con el número de categorías.
+
+En Java, se utiliza un array bidimensional y métodos para realizar operaciones sobre una matriz de ventas, como impresión, búsqueda, eliminación e inserción, con una sintaxis más estructurada y gestión explícita de tipos y arrays.
+En Python, se utiliza listas y funciones integradas para manejar una matriz de ventas, permitiendo operaciones como impresión, búsqueda, eliminación e inserción, mientras que en Java, se usan arrays y métodos más detallados para lograr lo mismo, con una sintaxis más estricta y manejo explícito de tipos y estructuras.
